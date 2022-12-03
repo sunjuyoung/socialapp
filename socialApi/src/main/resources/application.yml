@@ -1,0 +1,27 @@
+server:
+  port: 8802
+
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/socialapp
+    username: sun
+    password: rnrdj123
+
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        format_sql: true
+    show-sql: true
+
+
+jwt:
+  secret:
+    key: halo3030993
+
+
+logging:
+  level:
+    com.example.socialApi: debug
