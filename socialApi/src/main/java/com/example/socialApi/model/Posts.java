@@ -22,14 +22,14 @@ public class Posts extends BaseTimes {
     private Long id;
 
     private String description;
+
     private String img;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Users users;
 
-    private LocalDateTime createdAt;
 
-    @OneToMany(cascade = CascadeType.REMOVE,mappedBy = "posts")
+    @OneToMany(cascade = CascadeType.REMOVE,mappedBy = "posts",orphanRemoval = true)
     private List<Likes> likes = new ArrayList<>();
 
 

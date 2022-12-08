@@ -8,6 +8,7 @@ spring:
     username: sun
     password: rnrdj123
 
+
   jpa:
     hibernate:
       ddl-auto: create-drop
@@ -15,6 +16,7 @@ spring:
       hibernate:
         format_sql: true
     show-sql: true
+
 
 
 jwt:

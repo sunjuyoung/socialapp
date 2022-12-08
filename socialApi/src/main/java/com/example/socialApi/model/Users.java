@@ -10,6 +10,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import static javax.persistence.FetchType.LAZY;
+
 @NoArgsConstructor @AllArgsConstructor
 @Getter
 @Entity
@@ -28,10 +30,10 @@ public class Users  {
     @Column(nullable = false)
     private String password;
 
-    @Lob
+    @Lob @Basic(fetch=LAZY)
     private String coverPic;
 
-    @Lob
+    @Lob @Basic(fetch=LAZY)
     private String profilePic;
 
     private String city;

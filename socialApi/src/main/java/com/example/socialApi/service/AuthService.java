@@ -33,7 +33,6 @@ public class AuthService implements UserDetailsService {
         Optional<Users> users = userRepository.findByNickname(username);
         Users account = users.orElseThrow(()-> new UsernameNotFoundException("not found user"));
         UserDTO userDTO = new UserDTO(account);
-        log.info(userDTO);
         return userDTO;
 
     }
