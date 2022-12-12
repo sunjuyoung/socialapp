@@ -13,8 +13,7 @@ import java.io.Serializable;
 @Entity
 public class Relationships  {
 
-    @Id
-    @GeneratedValue
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "relationships_id")
     private Long id;
 

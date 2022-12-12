@@ -16,8 +16,8 @@ public class PostService {
 
     private final PostRepository postRepository;
 
-    public List<PostDTO> getPosts() {
-        List<PostDTO> postDTOList = postRepository.findAllWithUserNameAndLike();
+    public List<PostDTO> getPosts(Long id) {
+        List<PostDTO> postDTOList = postRepository.findAllWithUserNameAndLike(id);
         return postDTOList;
     }
 }

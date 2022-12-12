@@ -26,7 +26,7 @@ class PostRepositoryTest {
 
     @Test
     public void test(){
-        List<PostDTO> allWithUserNameAndLike = postRepository.findAllWithUserNameAndLike();
+        List<PostDTO> allWithUserNameAndLike = postRepository.findAllWithUserNameAndLike(1L);
         for(PostDTO tuple : allWithUserNameAndLike){
             System.out.println(tuple.getNickname());
         }

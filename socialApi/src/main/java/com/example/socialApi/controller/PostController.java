@@ -22,9 +22,9 @@ public class PostController {
     private final PostService postService;
 
 
-    @GetMapping(value = "/list")
-    public ResponseEntity<?> getPosts(){
-        List<PostDTO> postDTOList = postService.getPosts();
+    @GetMapping(value = "/list/{id}")
+    public ResponseEntity<?> getPosts(@PathVariable("id")Long id){
+        List<PostDTO> postDTOList = postService.getPosts(id);
         return ResponseEntity.ok().body(postDTOList);
     }
 

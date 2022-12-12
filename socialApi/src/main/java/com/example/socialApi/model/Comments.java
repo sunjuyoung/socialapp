@@ -15,7 +15,7 @@ import java.io.Serializable;
 @Entity
 public class Comments extends BaseTimes {
 
-    @Id @GeneratedValue
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "comments_id")
     private Long id;
 

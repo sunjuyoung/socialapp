@@ -10,5 +10,5 @@ import java.util.List;
 @Transactional(readOnly = true)
 public interface PostRepositoryExtension {
 
-    List<PostDTO> findAllWithUserNameAndLike();
+    List<PostDTO> findAllWithUserNameAndLike(Long id);
 }

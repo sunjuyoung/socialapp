@@ -17,7 +17,7 @@ import java.util.List;
 @Entity
 public class Posts extends BaseTimes {
 
-    @Id @GeneratedValue
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "posts_id")
     private Long id;
 

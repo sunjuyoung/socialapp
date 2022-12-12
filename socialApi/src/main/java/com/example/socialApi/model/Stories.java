@@ -13,8 +13,7 @@ import java.io.Serializable;
 @Entity
 public class Stories extends BaseTimes {
 
-    @Id
-    @GeneratedValue
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "stories_id")
     private Long id;
 
