@@ -32,14 +32,15 @@ public class PostRepositoryExtensionImpl extends QuerydslRepositorySupport imple
         List<PostDTO> postDTOList = from(posts)
                 .innerJoin(posts.users, users)
                 .leftJoin(likes).on(likes.posts.id.eq(posts.id))
-                .groupBy(posts.id, users.nickname)
+                .groupBy(posts.id, users.nickname,users.id)
                 .select(new QPostDTO(
                         posts.id,
                         posts.description,
                         posts.img,
                         likes.id.count().intValue(),
                         users.nickname,
-                        posts.modifiedBy
+                        posts.modifiedBy,
+                        users.id
                        ))
                 .fetch();
         return postDTOList;

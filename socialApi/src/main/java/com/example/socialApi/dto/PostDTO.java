@@ -24,14 +24,18 @@ public class PostDTO {
 
     private LocalDateTime modifiedBy;
 
+    private Long userId;
+
 
     @QueryProjection
-    public PostDTO(Long postId, String description, String img, int likeCount, String nickname, LocalDateTime modifiedBy) {
+    public PostDTO(Long postId, String description, String img, int likeCount, String nickname,
+                   LocalDateTime modifiedBy,Long userId) {
         this.postId = postId;
         this.description = description;
         this.img = img;
         this.likeCount = likeCount;
         this.nickname = nickname;
         this.modifiedBy = modifiedBy;
+        this.userId = userId;
     }
 }
