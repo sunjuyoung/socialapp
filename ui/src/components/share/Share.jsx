@@ -20,7 +20,6 @@ const Share = () => {
 
     // Mutations
     const mutation = useMutation((newPost)=>{
-      console.log("woefjweoifjio",newPost)
         return makeRequest.post("/api/post/"+currentUser.id,newPost)
     },{
       onSuccess: () => {
@@ -45,10 +44,10 @@ const Share = () => {
   const handleClick = async (e) =>{
     e.preventDefault();
     let imgUrl = "";
-    console.log(image)
     if(image) imgUrl = await upload();
     mutation.mutate({description,img:imgUrl})
-  
+    setDescription("");
+    setImage(null);
   }
 
 
@@ -56,12 +55,20 @@ const Share = () => {
     <div className="share">
       <div className="container">
         <div className="top">
-          <img
-            src={currentUser.profilePic}
-            alt=""
-          />
-          <input type="text" placeholder={`What's on your mind ${currentUser.nickname}?`} id="description"
-          onChange={(e)=> setDescription(e.target.value)} />
+          <div className="left">
+            <img
+              src={currentUser.profilePic}
+              alt=""
+            />
+            <input type="text" placeholder={`What's on your mind ${currentUser.nickname}?`} 
+            id="description"
+            onChange={(e)=> setDescription(e.target.value)} 
+            value={description}
+            />
+          </div>
+          <div className="right">
+            {image && <img className="file" alt="" src={URL.createObjectURL(image)} />}
+          </div>
         </div>
         <hr />
         <div className="bottom">

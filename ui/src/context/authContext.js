@@ -31,6 +31,7 @@ export const AuthContextProvider = ({ children }) => {
     localStorage.setItem("user", JSON.stringify(currentUser));
     localStorage.setItem("accessToken", currentUser.accessToken);
     localStorage.setItem("id", currentUser.id);
+    localStorage.setItem("nickname", currentUser.nickname);
   }, [currentUser]);
 
   return (

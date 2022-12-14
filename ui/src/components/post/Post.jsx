@@ -7,6 +7,7 @@ import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import { Link } from "react-router-dom";
 import Comments from "../comments/Comments";
 import { useState } from "react";
+import moment from "moment";
 
 const Post = ({ post }) => {
   const [commentOpen, setCommentOpen] = useState(false);
@@ -27,7 +28,7 @@ const Post = ({ post }) => {
               >
                 <span className="name">{post.nickname}</span>
               </Link>
-              <span className="date">1 min ago</span>
+              <span className="date">{moment(post.modifiedBy).fromNow()}</span>
             </div>
           </div>
           <MoreHorizIcon />
@@ -50,7 +51,7 @@ const Post = ({ post }) => {
             Share
           </div>
         </div>
-        {commentOpen && <Comments />}
+        {commentOpen && <Comments postId={post.id}/>}
       </div>
     </div>
   );
