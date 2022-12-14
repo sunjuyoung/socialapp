@@ -2,6 +2,7 @@ package com.example.socialApi.model;
 
 import com.example.socialApi.dto.SignUpDTO;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -15,6 +16,7 @@ import static javax.persistence.FetchType.LAZY;
 @NoArgsConstructor @AllArgsConstructor
 @Getter
 @Entity
+@Builder
 public class Users  {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,10 +32,8 @@ public class Users  {
     @Column(nullable = false)
     private String password;
 
-    @Lob
     private String coverPic;
 
-    @Lob
     private String profilePic;
 
     private String city;

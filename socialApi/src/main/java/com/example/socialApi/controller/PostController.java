@@ -42,7 +42,6 @@ public class PostController {
     @PostMapping(value = "/{userId}")
     public ResponseEntity<?> createPost(@PathVariable("userId")Long userId
             ,@RequestBody CreatePostDTO createPostDTO){
-
        postService.createPosts(createPostDTO,userId);
         return ResponseEntity.ok().body("success");
     }

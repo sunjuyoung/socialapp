@@ -42,6 +42,7 @@ public class PostRepositoryExtensionImpl extends QuerydslRepositorySupport imple
                                 .or(followIdEq(id))
                 )
                 .groupBy(posts.id, users.nickname,users.id)
+                .orderBy(posts.id.desc())
                 .select(new QPostDTO(
                         posts.id,
                         posts.description,
@@ -50,7 +51,6 @@ public class PostRepositoryExtensionImpl extends QuerydslRepositorySupport imple
                         posts.modifiedBy,
                         users.id,
                         posts.img
-
                        ))
                 .fetch();
         return postDTOList;
