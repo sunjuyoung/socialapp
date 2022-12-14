@@ -1,11 +1,20 @@
 import axios from "axios";
 
 let token = localStorage.getItem("accessToken");
+console.log(token)
 const headers = {
     'Content-Type': 'application/json',
     'Authorization': "Bearer "+token,
   }
+  const header = {
+    'Authorization': "Bearer "+token,
+  }
 export const makeRequest = axios.create({
-    baseURL:"http://localhost:8802",
+    baseURL:"http://localhost:8082",
     headers : headers
+})
+
+export const uploadRequest = axios.create({
+  baseURL:"http://localhost:8082",
+  headers : header
 })
