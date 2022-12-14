@@ -1,6 +1,7 @@
 package com.example.socialApi.controller;
 
 
+import com.example.socialApi.dto.CreatePostDTO;
 import com.example.socialApi.dto.PostDTO;
 import com.example.socialApi.service.PostService;
 import lombok.RequiredArgsConstructor;
@@ -11,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @Log4j2
@@ -28,16 +30,42 @@ public class PostController {
         return ResponseEntity.ok().body(postDTOList);
     }
 
-    @PostMapping
-    public ResponseEntity<?> createPost(@RequestParam(value = "image",required = false) MultipartFile file,
-                                        @RequestBody PostDTO postDTO){
-        return null;
+/*    @PostMapping(value = "/{userId}")
+    public ResponseEntity<?> createPost(@PathVariable("userId")Long userId
+            ,@RequestBody CreatePostDTO createPostDTO){
+        log.info("=====");
+        log.info(createPostDTO.getDescription());
+        log.info(createPostDTO.getImg());
+        postService.createPost(createPostDTO,userId);
+        return ResponseEntity.ok().body("success");
+    }*/
+    @PostMapping(value = "/{userId}")
+    public ResponseEntity<?> createPost(@PathVariable("userId")Long userId
+            ,@RequestBody CreatePostDTO createPostDTO){
+
+       postService.createPosts(createPostDTO,userId);
+        return ResponseEntity.ok().body("success");
     }
-//    @GetMapping(value = "/image/{fileName}")
-//    public ResponseEntity<?> getImage(@PathVariable("fileName")String fileName) {
-//        byte[] image = roomService.getImage(fileName);
-//        return ResponseEntity.status(HttpStatus.OK)
-//                .contentType(MediaType.valueOf("image/png"))
-//                .body(image);
-//    }
+
+    @PostMapping("/image")
+    public ResponseEntity<?> uploadImage(@RequestParam("image")MultipartFile file) throws IOException {
+        Long newImageId = postService.uploadImage(file);
+        return ResponseEntity.ok().body(newImageId);
+    }
+
+    @PostMapping("/image/{postId}")
+    public ResponseEntity<?> uploadImage(@PathVariable(value = "postId")Long postId
+            ,@RequestParam("image")MultipartFile file) throws IOException {
+        Long newImageId = postService.uploadImagePost(file,postId);
+        return ResponseEntity.ok().body(newImageId);
+    }
+
+    
+    @GetMapping(value = "/image/{fileName}")
+    public ResponseEntity<?> getImage(@PathVariable("fileName")String fileName) {
+        byte[] image = postService.getImage(fileName);
+        return ResponseEntity.status(HttpStatus.OK)
+                .contentType(MediaType.valueOf("image/png"))
+                .body(image);
+    }
 }

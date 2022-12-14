@@ -13,6 +13,8 @@ import java.time.LocalDateTime;
 public class PostDTO {
 
     private Long postId;
+    private Long userId;
+    private Long postsPhotoId;
 
     private String description;
 
@@ -24,18 +26,19 @@ public class PostDTO {
 
     private LocalDateTime modifiedBy;
 
-    private Long userId;
+
 
 
     @QueryProjection
-    public PostDTO(Long postId, String description, String img, int likeCount, String nickname,
-                   LocalDateTime modifiedBy,Long userId) {
+    public PostDTO(Long postId, String description, int likeCount, String nickname,
+                   LocalDateTime modifiedBy,Long userId,String img) {
         this.postId = postId;
         this.description = description;
-        this.img = img;
         this.likeCount = likeCount;
         this.nickname = nickname;
         this.modifiedBy = modifiedBy;
         this.userId = userId;
+        this.img = img;
+
     }
 }

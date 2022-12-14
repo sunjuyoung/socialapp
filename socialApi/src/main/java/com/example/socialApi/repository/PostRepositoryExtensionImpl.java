@@ -16,7 +16,9 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 import static com.example.socialApi.model.QLikes.likes;
+
 import static com.example.socialApi.model.QPosts.*;
+import static com.example.socialApi.model.QPostsPhoto.*;
 import static com.example.socialApi.model.QRelationships.*;
 import static com.example.socialApi.model.QUsers.*;
 import static org.springframework.util.ObjectUtils.isEmpty;
@@ -30,9 +32,8 @@ public class PostRepositoryExtensionImpl extends QuerydslRepositorySupport imple
 
     @Override
     public List<PostDTO> findAllWithUserNameAndLike(Long id) {
-
-
         List<PostDTO> postDTOList = from(posts)
+
                 .innerJoin(posts.users, users)
                 .leftJoin(relationships).on(relationships.followedUser.eq(users))
                 .leftJoin(likes).on(likes.posts.id.eq(posts.id))
@@ -44,11 +45,12 @@ public class PostRepositoryExtensionImpl extends QuerydslRepositorySupport imple
                 .select(new QPostDTO(
                         posts.id,
                         posts.description,
-                        posts.img,
                         likes.id.count().intValue(),
                         users.nickname,
                         posts.modifiedBy,
-                        users.id
+                        users.id,
+                        posts.img
+
                        ))
                 .fetch();
         return postDTOList;

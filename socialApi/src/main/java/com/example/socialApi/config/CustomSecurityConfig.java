@@ -58,7 +58,7 @@ public class CustomSecurityConfig {
         apiLoginFilter.setFilterProcessesUrl("/login");
 
 
-        http.authorizeRequests().antMatchers("/refreshToken").permitAll();
+        http.authorizeRequests().antMatchers("/refreshToken","/api/post/image/**").permitAll();
         http.authorizeRequests().antMatchers(HttpMethod.POST,"/api/auth/signUp").permitAll();
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
@@ -76,7 +76,10 @@ public class CustomSecurityConfig {
 
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer(){
-        return web -> web.ignoring().requestMatchers(PathRequest.toStaticResources().atCommonLocations());
+        return web -> web.ignoring()
+                .requestMatchers(PathRequest.toStaticResources().atCommonLocations())
+                .and()
+                .ignoring().antMatchers("/api/post/image/**");
     }
 
     @Bean

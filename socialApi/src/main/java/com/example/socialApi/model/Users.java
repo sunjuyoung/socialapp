@@ -30,10 +30,10 @@ public class Users  {
     @Column(nullable = false)
     private String password;
 
-    @Lob @Basic(fetch=LAZY)
+    @Lob
     private String coverPic;
 
-    @Lob @Basic(fetch=LAZY)
+    @Lob
     private String profilePic;
 
     private String city;

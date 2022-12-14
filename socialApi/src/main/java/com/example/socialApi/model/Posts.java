@@ -2,12 +2,11 @@ package com.example.socialApi.model;
 
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.io.Serializable;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,6 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 @Getter
 @Entity
+@Builder
 public class Posts extends BaseTimes {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,17 +23,27 @@ public class Posts extends BaseTimes {
 
     private String description;
 
+/*    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "posts_photo_id")
+    private PostsPhoto postsPhoto;*/
+
     private String img;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Users users;
 
 
-    @OneToMany(cascade = CascadeType.REMOVE,mappedBy = "posts",orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.REMOVE
+            ,mappedBy = "posts"
+            ,orphanRemoval = true)
     private List<Likes> likes = new ArrayList<>();
 
 
 
 
+
+    public void uploadImg(String img){
+        this.img = img;
+    }
 
 }
