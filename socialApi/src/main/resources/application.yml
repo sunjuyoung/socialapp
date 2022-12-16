@@ -34,4 +34,4 @@ logging:
     com.example.socialApi: debug
 
 com.example.socialapp.path: C:\\Users\\SUN\\work\\socialapp\\ui\\public\\upload
-
+com.example.socialapp.path.user: C:\\Users\\SUN\\work\\socialapp\\ui\\public\\upload\\users

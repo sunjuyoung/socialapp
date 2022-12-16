@@ -33,10 +33,10 @@ public class Posts extends BaseTimes {
     private Users users;
 
 
-    @OneToMany(cascade = CascadeType.REMOVE
+/*    @OneToMany(cascade = CascadeType.REMOVE
             ,mappedBy = "posts"
             ,orphanRemoval = true)
-    private List<Likes> likes = new ArrayList<>();
+    private List<Likes> likes = new ArrayList<>();*/
 
 
 
@@ -45,5 +45,6 @@ public class Posts extends BaseTimes {
     public void uploadImg(String img){
         this.img = img;
     }
+
 
 }
