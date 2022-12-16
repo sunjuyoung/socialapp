@@ -2,6 +2,7 @@ import "./share.scss";
 import Image from "../../assets/img.png";
 import Map from "../../assets/map.png";
 import Friend from "../../assets/friend.png";
+import PersonIcon from '@mui/icons-material/Person';
 import { useContext, useState } from "react";
 import { AuthContext } from "../../context/authContext";
 import {
@@ -56,10 +57,14 @@ const Share = () => {
       <div className="container">
         <div className="top">
           <div className="left">
-            <img
+            {currentUser.profilePic?
+             (<>
+             <img
               src={currentUser.profilePic}
-              alt=""
-            />
+              alt=""/>
+              </>) 
+             : (<><PersonIcon /></>)}
+       
             <input type="text" placeholder={`What's on your mind ${currentUser.nickname}?`} 
             id="description"
             onChange={(e)=> setDescription(e.target.value)} 
