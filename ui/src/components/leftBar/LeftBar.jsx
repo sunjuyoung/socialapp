@@ -14,6 +14,7 @@ import Courses from "../../assets/12.png";
 import Fund from "../../assets/13.png";
 import { AuthContext } from "../../context/authContext";
 import { useContext } from "react";
+import PersonIcon from '@mui/icons-material/Person';
 
 const LeftBar = () => {
 
@@ -24,10 +25,13 @@ const LeftBar = () => {
       <div className="container">
         <div className="menu">
           <div className="user">
-            <img
-              src={currentUser.profilePic}
-              alt=""
-            />
+          {currentUser.user?
+             (<>
+             <img
+              src={`${process.env.PUBLIC_URL}/upload/`+currentUser.user.profilePic}
+              alt=""/>
+              </>) 
+             : (<><PersonIcon /></>)}
             <span>{currentUser.nickname}</span>
           </div>
           <div className="item">

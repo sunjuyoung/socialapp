@@ -11,6 +11,7 @@ import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { DarkModeContext } from "../../context/darkModeContext";
 import { AuthContext } from "../../context/authContext";
+import PersonIcon from '@mui/icons-material/Person';
 
 const Navbar = () => {
   const { toggle, darkMode } = useContext(DarkModeContext);
@@ -21,7 +22,7 @@ const Navbar = () => {
     <div className="navbar">
       <div className="left">
         <Link to="/" style={{ textDecoration: "none" }}>
-          <span>lamasocial</span>
+          <span>social</span>
         </Link>
         <HomeOutlinedIcon />
         {darkMode ? (
@@ -40,11 +41,19 @@ const Navbar = () => {
         <EmailOutlinedIcon />
         <NotificationsOutlinedIcon />
         <div className="user">
-          <img
-            src={currentUser.profilePic}
-            alt=""
-          />
-          <span>{currentUser.nickname}</span>
+        {currentUser.user?
+             (<>
+             <img
+              src={`${process.env.PUBLIC_URL}/upload/`+currentUser.user.profilePic}
+              alt=""/>
+              </>) 
+             : (<><PersonIcon /></>)}
+          <Link
+            to={`/profile/${currentUser.id}`}
+            style={{ textDecoration: "none", color: "inherit" }}
+          >
+            <span className="name">{currentUser.nickname}</span>
+          </Link>
         </div>
       </div>
     </div>
