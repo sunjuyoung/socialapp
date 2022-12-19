@@ -70,9 +70,16 @@ public class ApiLoginFilter  extends UsernamePasswordAuthenticationFilter {
         Gson gson = new Gson();
         log.info(accessToken);
 
-        Map<String,Object> keyMap = Map.of("accessToken",accessToken ,
-                "refreshToken",refreshToken,"nickname",user.getUsername(),
-            "email",user.getUsers().getEmail(), "id",user.getUsers().getId());
+        Map<String,Object> keyMap = Map.of(
+                "accessToken",accessToken ,
+                "refreshToken",refreshToken,
+                "nickname",user.getUsername(),
+            "email",user.getUsers().getEmail(),
+                "id",user.getUsers().getId(),
+        "profilePic",user.getUsers().getProfilePic(),
+                "coverPic",user.getUsers().getCoverPic()
+
+        );
         String jsonStr = gson.toJson(keyMap);
         log.info(jsonStr);
         response.getWriter().println(jsonStr);

@@ -12,4 +12,8 @@ public class SignUpDTO {
     private String nickname;
     private String email;
     private String password;
+    private String coverPic;
+    private String profilePic;
+    private String city;
+    private String website;
 }

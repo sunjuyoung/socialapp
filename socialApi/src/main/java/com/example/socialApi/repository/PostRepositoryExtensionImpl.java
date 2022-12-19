@@ -50,7 +50,8 @@ public class PostRepositoryExtensionImpl extends QuerydslRepositorySupport imple
                         users.nickname,
                         posts.modifiedBy,
                         users.id,
-                        posts.img
+                        posts.img,
+                        users.profilePic
                        ))
                 .fetch();
         return postDTOList;

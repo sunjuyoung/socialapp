@@ -31,6 +31,10 @@ public class SocialApiApplication {
 				signUpDTO.setPassword("1234");
 				signUpDTO.setNickname("test"+i);
 				signUpDTO.setEmail("test"+i);
+				signUpDTO.setCoverPic("haha.jpg");
+				signUpDTO.setProfilePic("newjinsd.png");
+				signUpDTO.setCity("Seoul");
+				signUpDTO.setWebsite("www.naver.com");
 
 				authService.signUp(signUpDTO);
 			}

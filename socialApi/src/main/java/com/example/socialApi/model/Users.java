@@ -50,6 +50,10 @@ public class Users  {
         this.nickname = signUpDTO.getNickname();
         this.email = signUpDTO.getEmail();
         this.password = signUpDTO.getPassword();
+        this.profilePic = signUpDTO.getProfilePic();
+        this.coverPic = signUpDTO.getCoverPic();
+        this.website = signUpDTO.getWebsite();
+        this.city = signUpDTO.getCity();
     }
 
 
