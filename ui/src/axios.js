@@ -17,3 +17,9 @@ export const uploadRequest = axios.create({
   baseURL:"http://localhost:8082",
   headers : header
 })
+
+export const putRequest = axios.create({
+  baseURL:"http://localhost:8082",
+  headers : headers,
+  method: "put"
+})

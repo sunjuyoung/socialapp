@@ -5,13 +5,16 @@ import { makeRequest } from "../../axios";
 import { useContext } from "react";
 import { AuthContext } from "../../context/authContext";
 
-const Posts = () => {
+const Posts = ({userId}) => {
   const { currentUser } = useContext(AuthContext);
+  let profileUserId = "";
+  if(userId){
+    profileUserId = userId;
+  }
   const { isLoading, error, data } = useQuery({
     queryKey: ['posts'],
-    queryFn: () =>
-      makeRequest.get("/api/post/list/"+currentUser.id).then((res)=>{
-        console.log(res.data);
+    queryFn: () => 
+      makeRequest.get("/api/post/list/"+currentUser.id+"?profileUserId="+profileUserId).then((res)=>{
         return res.data;
       })
   })

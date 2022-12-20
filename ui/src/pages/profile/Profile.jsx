@@ -11,12 +11,13 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import Posts from "../../components/posts/Posts"
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { makeRequest } from "../../axios";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AuthContext } from "../../context/authContext";
 import { useLocation } from "react-router-dom";
+import Update from "../../components/update/Update";
 
 const Profile = () => {
-
+  const [openUpdate,setOpenUpdate] = useState(false);
   const { currentUser } = useContext(AuthContext);
   
   const userId = parseInt(useLocation().pathname.split("/")[2]);
@@ -27,6 +28,7 @@ const Profile = () => {
         return res.data;
       })
   })
+  console.log(data);
 
   const { isLoading :rIsLoading, data: relationshipData } = useQuery({
     queryKey: ['relationship'],
@@ -49,9 +51,6 @@ const Profile = () => {
   queryClient.invalidateQueries({ queryKey: ['relationship'] })
 }
 })
-
-console.log(relationshipData)
-
 
   const handleFollow = (e) =>{
     e.preventDefault();
@@ -105,7 +104,7 @@ console.log(relationshipData)
               </div>
             </div>
               {rIsLoading? "Loading.." : parseInt(currentUser.id) === userId ? 
-              (<button>update</button>) 
+              (<button onClick={()=> setOpenUpdate(true)}>update</button>) 
               : <button onClick={handleFollow}>
                 {relationshipData.includes(parseInt(currentUser.id))? "Following" : "Follow"}
                 </button>} 
@@ -115,8 +114,10 @@ console.log(relationshipData)
             <MoreVertIcon />
           </div>
         </div>
-      <Posts/>
+      <Posts userId={userId}/>
       </div></>}
+
+      {openUpdate && <Update setOpenUpdate={setOpenUpdate} user={data}/>}
     </div>
  
   );
