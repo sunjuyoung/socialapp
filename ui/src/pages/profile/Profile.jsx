@@ -39,17 +39,18 @@ const Profile = () => {
   const queryClient = useQueryClient();
   // Mutations
   const mutation = useMutation((following)=>{
-    console.log(following)
-    if(following) return makeRequest.delete("/api/relationship/"+userId+"/"+currentUser.id);
+    
+    if(following) return makeRequest.delete("/api/relationship/"+currentUser.id+"/"+userId);
 
-    return makeRequest.post("/api/relationship/",{followUser:userId,followedUser:currentUser.id});
+    return makeRequest.post("/api/relationship/"+currentUser.id+"/"+userId);
 },{
   onSuccess: () => {
   // Invalidate and refetch
-  queryClient.invalidateQueries({ queryKey: ['user'] })
+  queryClient.invalidateQueries({ queryKey: ['relationship'] })
 }
 })
 
+console.log(relationshipData)
 
 
   const handleFollow = (e) =>{
@@ -106,7 +107,7 @@ const Profile = () => {
               {rIsLoading? "Loading.." : parseInt(currentUser.id) === userId ? 
               (<button>update</button>) 
               : <button onClick={handleFollow}>
-                {relationshipData.includes(currentUser.id)? "Following" : "Follow"}
+                {relationshipData.includes(parseInt(currentUser.id))? "Following" : "Follow"}
                 </button>} 
           </div>
           <div className="right">
