@@ -6,10 +6,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Log4j2
 @RequiredArgsConstructor
@@ -23,5 +20,12 @@ public class UserController {
     public ResponseEntity<?> getUserProfileById(@PathVariable("userId")Long userId){
         ProfileDTO profileDTO  = userService.getUserProfileById(userId);
         return ResponseEntity.ok().body(profileDTO);
+    }
+
+    @PutMapping(value = "/{userId}")
+    public ResponseEntity<?> updateProfile(@PathVariable("userId")Long userId,
+                                           @RequestBody ProfileDTO profileDTO){
+        userService.updateProfile(userId,profileDTO);
+        return ResponseEntity.ok().body("updated");
     }
 }

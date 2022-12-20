@@ -1,5 +1,6 @@
 package com.example.socialApi.model;
 
+import com.example.socialApi.dto.ProfileDTO;
 import com.example.socialApi.dto.SignUpDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -54,6 +55,14 @@ public class Users  {
         this.coverPic = signUpDTO.getCoverPic();
         this.website = signUpDTO.getWebsite();
         this.city = signUpDTO.getCity();
+    }
+
+    public void updateUser(ProfileDTO profileDTO){
+        this.nickname = profileDTO.getNickname();
+        this.profilePic = profileDTO.getProfilePic();
+        this.city = profileDTO.getCity();
+        this.website = profileDTO.getWebsite();
+        this.coverPic = profileDTO.getCoverPic();
     }
 
 
