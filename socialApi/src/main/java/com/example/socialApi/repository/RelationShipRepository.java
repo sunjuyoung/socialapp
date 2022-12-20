@@ -18,4 +18,5 @@ public interface RelationShipRepository extends JpaRepository<Relationships,Long
             " group by r.followUser.id")
     List<Relationships> findAllByFollowedId(@Param("userId")Long userId);
 
+    void deleteByFollowUserAndFollowedUser(Users followUser, Users followedUser);
 }

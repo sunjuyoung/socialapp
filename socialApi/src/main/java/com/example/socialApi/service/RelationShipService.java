@@ -8,12 +8,14 @@ import com.example.socialApi.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Log4j2
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class RelationShipService {
 
@@ -21,10 +23,10 @@ public class RelationShipService {
     private final UserRepository userRepository;
 
 
-    public void addRelationShip(RelationShipDTO relationShipDTO) {
-        Users users = userRepository.findById(relationShipDTO.getFollowUser()).get();
+    public void addRelationShip(Long followUserId, Long followedUserId) {
+        Users users = userRepository.findById(followUserId).get();
         Users followedUser = Users.builder()
-                .id(relationShipDTO.getFollowedUser())
+                .id(followedUserId)
                 .build();
         Relationships relationships = Relationships.builder()
                 .followUser(users)
@@ -45,5 +47,11 @@ public class RelationShipService {
         return dtoList;
 
 
+    }
+
+    public void deleteRelationShip(Long followUserId, Long followedUserId) {
+        Users followUser = userRepository.findById(followUserId).get();
+        Users followedUser = userRepository.findById(followedUserId).get();
+        relationShipRepository.deleteByFollowUserAndFollowedUser(followUser,followedUser);
     }
 }

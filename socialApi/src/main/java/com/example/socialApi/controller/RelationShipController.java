@@ -25,9 +25,17 @@ public class RelationShipController {
         return ResponseEntity.ok().body(relationShipDTOList.stream().map(RelationShipDTO::getFollowUser));
     }
 
-    @PostMapping
-    public ResponseEntity<?> addRelationShip(@RequestBody RelationShipDTO relationShipDTO){
-        relationShipService.addRelationShip(relationShipDTO);
+    @PostMapping("/{followUser}/{followedUser}")
+    public ResponseEntity<?> addRelationShip(@PathVariable("followUser")Long followUser,
+                                             @PathVariable("followedUser")Long followedUser){
+        relationShipService.addRelationShip(followUser,followedUser);
+        return ResponseEntity.ok().body("success");
+    }
+    @DeleteMapping("/{followUser}/{followedUser}")
+    public ResponseEntity<?> deleteRelationShip(@PathVariable("followUser")Long followUser,
+                                                @PathVariable("followedUser")Long followedUser){
+
+        relationShipService.deleteRelationShip(followUser,followedUser);
         return ResponseEntity.ok().body("success");
     }
 }

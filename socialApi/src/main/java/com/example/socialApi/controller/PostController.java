@@ -25,8 +25,10 @@ public class PostController {
 
 
     @GetMapping(value = "/list/{id}")
-    public ResponseEntity<?> getPosts(@PathVariable("id")Long id){
-        List<PostDTO> postDTOList = postService.getPosts(id);
+    public ResponseEntity<?> getPosts(@PathVariable("id")Long id,
+                                      @RequestParam(value = "profileUserId",required = false)Long profileUserId){
+
+        List<PostDTO> postDTOList = postService.getPosts(id,profileUserId);
         return ResponseEntity.ok().body(postDTOList);
     }
 

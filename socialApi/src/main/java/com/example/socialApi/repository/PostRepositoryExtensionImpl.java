@@ -57,6 +57,33 @@ public class PostRepositoryExtensionImpl extends QuerydslRepositorySupport imple
         return postDTOList;
     }
 
+    @Override
+    public List<PostDTO> findAllByUserId(Long id) {
+        List<PostDTO> postDTOList = from(posts)
+
+                .innerJoin(posts.users, users)
+                .leftJoin(relationships).on(relationships.followedUser.eq(users))
+                .leftJoin(likes).on(likes.posts.id.eq(posts.id))
+                .where(
+                        userIdEq(id)
+                )
+                .groupBy(posts.id, users.nickname,users.id)
+                .orderBy(posts.id.desc())
+                .select(new QPostDTO(
+                        posts.id,
+                        posts.description,
+                        likes.id.count().intValue(),
+                        users.nickname,
+                        posts.modifiedBy,
+                        users.id,
+                        posts.img,
+                        users.profilePic
+                ))
+                .fetch();
+        return postDTOList;
+
+    }
+
     private BooleanExpression followIdEq(Long id) {
         return isEmpty(id) ? null : relationships.followUser.id.eq(id);
     }

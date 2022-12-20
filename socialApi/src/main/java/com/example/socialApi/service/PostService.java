@@ -42,8 +42,13 @@ public class PostService {
     @Value("${com.example.socialapp.path}")
     private String uploadPath;
 
-    public List<PostDTO> getPosts(Long id) {
-        List<PostDTO> postDTOList = postRepository.findAllWithUserNameAndLike(id);
+    public List<PostDTO> getPosts(Long id,Long profileUserId) {
+        List<PostDTO> postDTOList = new ArrayList<>();
+        if(profileUserId != null){
+            postDTOList = postRepository.findAllByUserId(profileUserId);
+        }else{
+            postDTOList = postRepository.findAllWithUserNameAndLike(id);
+        }
         return postDTOList;
     }
 

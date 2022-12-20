@@ -11,4 +11,6 @@ import java.util.List;
 public interface PostRepositoryExtension {
 
     List<PostDTO> findAllWithUserNameAndLike(Long id);
+
+    List<PostDTO> findAllByUserId(Long id);
 }
