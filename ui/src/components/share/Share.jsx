@@ -23,10 +23,11 @@ const Share = () => {
     const mutation = useMutation((newPost)=>{
         return makeRequest.post("/api/post/"+currentUser.id,newPost)
     },{
-      onSuccess: () => {
+      onSuccess: () => Promise.all([
       // Invalidate and refetch
-      queryClient.invalidateQueries({ queryKey: ['posts'] })
-    }
+      queryClient.invalidateQueries({ queryKey: ['posts'] }),
+      queryClient.invalidateQueries({ queryKey: ['latelyPosts'] })
+      ])
   })
 
 
@@ -60,7 +61,7 @@ const Share = () => {
             {currentUser.profilePic?
              (<>
              <img
-              src={currentUser.profilePic}
+              src={process.env.PUBLIC_URL+"upload/"+currentUser.profilePic}
               alt=""/>
               </>) 
              : (<><PersonIcon /></>)}

@@ -11,10 +11,12 @@ const Posts = ({userId}) => {
   if(userId){
     profileUserId = userId;
   }
+
   const { isLoading, error, data } = useQuery({
     queryKey: ['posts'],
     queryFn: () => 
-      makeRequest.get("/api/post/list/"+currentUser.id+"?profileUserId="+profileUserId).then((res)=>{
+      makeRequest.get("/api/post/list/"+currentUser.id+"?profileUserId="+profileUserId,
+      {withCredentials: true}).then((res)=>{
         return res.data;
       })
   })

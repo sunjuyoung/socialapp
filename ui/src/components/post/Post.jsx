@@ -4,6 +4,10 @@ import FavoriteOutlinedIcon from "@mui/icons-material/FavoriteOutlined";
 import TextsmsOutlinedIcon from "@mui/icons-material/TextsmsOutlined";
 import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
+
+import DeleteIcon from '@mui/icons-material/Delete';
+import UpdateIcon from '@mui/icons-material/Update';
+
 import { Link } from "react-router-dom";
 import Comments from "../comments/Comments";
 import { useContext, useState } from "react";
@@ -12,9 +16,12 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { makeRequest } from "../../axios";
 import { AuthContext } from "../../context/authContext";
 
+
 const Post = ({ post }) => {
   const [commentOpen, setCommentOpen] = useState(false);
   const { currentUser } = useContext(AuthContext);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [selectedItem, setSelectedItem] = useState('');
 
   const { isLoading, error, data } = useQuery({
     queryKey: ['likes',post.postId],
@@ -44,6 +51,10 @@ const Post = ({ post }) => {
     mutation.mutate(data?.includes(parseInt(currentUser.id)))
   }
 
+  const handlePostDelete = (e) =>{
+
+  }
+
 
   return (
     <div className="post">
@@ -61,7 +72,14 @@ const Post = ({ post }) => {
               <span className="date">{moment(post.modifiedBy).fromNow()}</span>
             </div>
           </div>
-          <MoreHorizIcon />
+          {/* {post.userId === currentUser.id
+          ? <MoreHorizIcon /> 
+          : <></> } */}
+      
+        <div className="deleteBtn">
+          <DeleteIcon onClick={handlePostDelete()}/>
+        </div>
+
         </div>
         <div className="content">
           <p>{post.description}</p>

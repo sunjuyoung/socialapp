@@ -25,10 +25,10 @@ const LeftBar = () => {
       <div className="container">
         <div className="menu">
           <div className="user">
-          {currentUser.user?
+          {currentUser.profilePic?
              (<>
              <img
-              src={`${process.env.PUBLIC_URL}/upload/`+currentUser.user.profilePic}
+              src={`${process.env.PUBLIC_URL}/upload/`+currentUser.profilePic}
               alt=""/>
               </>) 
              : (<><PersonIcon /></>)}

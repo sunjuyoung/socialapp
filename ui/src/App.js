@@ -21,6 +21,7 @@ import { QueryClient, QueryClientProvider, useQuery } from '@tanstack/react-quer
 const queryClient = new QueryClient()
 function App() {
   const {currentUser} = useContext(AuthContext);
+  console.log(currentUser)
 
   const { darkMode } = useContext(DarkModeContext);
 

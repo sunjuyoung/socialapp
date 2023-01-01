@@ -41,7 +41,7 @@ const Profile = () => {
   const queryClient = useQueryClient();
   // Mutations
   const mutation = useMutation((following)=>{
-    
+
     if(following) return makeRequest.delete("/api/relationship/"+currentUser.id+"/"+userId);
 
     return makeRequest.post("/api/relationship/"+currentUser.id+"/"+userId);

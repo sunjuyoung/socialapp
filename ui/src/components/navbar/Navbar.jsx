@@ -41,10 +41,10 @@ const Navbar = () => {
         <EmailOutlinedIcon />
         <NotificationsOutlinedIcon />
         <div className="user">
-        {currentUser.user?
+        {currentUser.profilePic?
              (<>
              <img
-              src={`${process.env.PUBLIC_URL}/upload/`+currentUser.user.profilePic}
+              src={`${process.env.PUBLIC_URL}/upload/`+currentUser.profilePic}
               alt=""/>
               </>) 
              : (<><PersonIcon /></>)}

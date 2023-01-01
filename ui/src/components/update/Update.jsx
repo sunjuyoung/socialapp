@@ -11,8 +11,6 @@ const Update = ({setOpenUpdate,user}) => {
         city: "",
         website: ""
     })
-
-
     
     const queryClient = useQueryClient()
 

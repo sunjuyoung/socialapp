@@ -42,7 +42,7 @@ const Comments = ({postId}) => {
       {currentUser.profilePic?
              (<>
              <img
-              src={currentUser.profilePic}
+              src={process.env.PUBLIC_URL+"upload/"+currentUser.profilePic}
               alt=""/>
               </>) 
              : (<><PersonIcon /></>)}

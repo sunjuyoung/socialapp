@@ -1,12 +1,12 @@
 import axios from "axios";
 
-const token = localStorage.getItem("accessToken");
-const headers = {
+const token = JSON.parse(localStorage.getItem("user"));
+const headers =  {
     'Content-Type': 'application/json',
-    'Authorization': "Bearer "+token,
-  }
+    'Authorization': "Bearer "+token?.accessToken,
+  };
   const header = {
-    'Authorization': "Bearer "+token,
+    'Authorization': "Bearer "+token?.accessToken
   }
 export const makeRequest = axios.create({
     baseURL:"http://localhost:8082",
@@ -15,7 +15,7 @@ export const makeRequest = axios.create({
 
 export const uploadRequest = axios.create({
   baseURL:"http://localhost:8082",
-  headers : header
+ headers : header
 })
 
 export const putRequest = axios.create({
