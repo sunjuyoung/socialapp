@@ -12,12 +12,15 @@ import { useContext } from "react";
 import { DarkModeContext } from "../../context/darkModeContext";
 import { AuthContext } from "../../context/authContext";
 import PersonIcon from '@mui/icons-material/Person';
+import { useSelector } from "react-redux";
+import { selectUserInfo } from "../../pages/login/authSlice";
 
 const Navbar = () => {
   const { toggle, darkMode } = useContext(DarkModeContext);
-  const { currentUser } = useContext(AuthContext);
+ // const { currentUser } = useContext(AuthContext);
  
-
+  const currentUser = useSelector(selectUserInfo);
+  
   return (
     <div className="navbar">
       <div className="left">

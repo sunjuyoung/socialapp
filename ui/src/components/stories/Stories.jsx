@@ -1,10 +1,14 @@
 import { useContext } from "react";
 import "./stories.scss"
 import { AuthContext } from "../../context/authContext"
+import { useSelector } from "react-redux";
+import { selectUserInfo } from "../../pages/login/authSlice";
 
 const Stories = () => {
 
-  const {currentUser} = useContext(AuthContext)
+  //const {currentUser} = useContext(AuthContext)
+  const currentUser = useSelector(selectUserInfo);
+
 
   //TEMPORARY
   const stories = [

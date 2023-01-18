@@ -1,35 +1,33 @@
 import Post from "../post/Post";
 import "./posts.scss";
-import {useQuery } from '@tanstack/react-query'
-import { makeRequest } from "../../axios";
-import { useContext } from "react";
-import { AuthContext } from "../../context/authContext";
 
-const Posts = ({userId}) => {
-  const { currentUser } = useContext(AuthContext);
-  let profileUserId = "";
-  if(userId){
-    profileUserId = userId;
-  }
+import { useSelector } from "react-redux";
+import { postsApiSlice, selectAllPosts, useGetPostsQuery } from "./postsApiSlice";
+import { selectCurrentId, selectCurrentToken, selectUserInfo } from "../../pages/login/authSlice";
+import { useEffect } from "react";
 
-  const { isLoading, error, data } = useQuery({
-    queryKey: ['posts'],
-    queryFn: () => 
-      makeRequest.get("/api/post/list/"+currentUser.id+"?profileUserId="+profileUserId,
-      {withCredentials: true}).then((res)=>{
-        return res.data;
-      })
+const Posts = () => {
+  const userId = useSelector(selectCurrentId);
+  const { currentData: post, isFetching, isLoading,isSuccess } = useGetPostsQuery({id:userId}, {
+    pollingInterval: 30000,
+    refetchOnMountOrArgChange: true,
+    skip: false,
   })
+
+  useEffect(() => {
+
+  }, [isSuccess])
 
 
   return <div className="posts">
-    {error 
-    ? "Something went wrong.." 
-    : isLoading 
+    {
+     isLoading 
     ? "loading" 
-    : data.map(post=>(
-      <Post post={post} key={post.postId}/>
-    ))}
+    : post?.map(p=>(
+      <Post post={p} key={p.postId}/>
+    ))} 
+
+    
   </div>;
 };
 

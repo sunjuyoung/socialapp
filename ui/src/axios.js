@@ -1,7 +1,16 @@
 import axios from "axios";
+import { useSelector } from "react-redux";
+import { selectCurrentToken } from "./pages/login/authSlice";
+
+
+
+
+
+
 
 const token = JSON.parse(localStorage.getItem("user"));
 const headers =  {
+  
     'Content-Type': 'application/json',
     'Authorization': "Bearer "+token?.accessToken,
   };
@@ -21,5 +30,5 @@ export const uploadRequest = axios.create({
 export const putRequest = axios.create({
   baseURL:"http://localhost:8082",
   headers : headers,
-  method: "put"
+  method: "PUT"
 })

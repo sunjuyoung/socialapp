@@ -3,33 +3,34 @@ import Image from "../../assets/img.png";
 import Map from "../../assets/map.png";
 import Friend from "../../assets/friend.png";
 import PersonIcon from '@mui/icons-material/Person';
-import { useContext, useState } from "react";
-import { AuthContext } from "../../context/authContext";
+import { useContext, useEffect, useState } from "react";
 import {
   useMutation,
   useQueryClient,
 } from '@tanstack/react-query'
 import { makeRequest, uploadRequest } from "../../axios";
+import { useSelector } from "react-redux";
+import { selectUserInfo } from "../../pages/login/authSlice";
+import { useAddNewPostMutation } from "../posts/postsApiSlice";
 
 const Share = () => {
 
   const [image, setImage] = useState(null)
   const [description, setDescription] = useState("")
-  const {currentUser} = useContext(AuthContext)
+  const currentUser = useSelector(selectUserInfo);
 
-  const queryClient = useQueryClient()
 
-    // Mutations
-    const mutation = useMutation((newPost)=>{
-        return makeRequest.post("/api/post/"+currentUser.id,newPost)
-    },{
-      onSuccess: () => Promise.all([
-      // Invalidate and refetch
-      queryClient.invalidateQueries({ queryKey: ['posts'] }),
-      queryClient.invalidateQueries({ queryKey: ['latelyPosts'] })
-      ])
-  })
+  const [addNewPost ,{
+    isLoading: isAddLoading,
+    isSuccess: isAddSuccess,
+    isError: isAddError,
+    error: addError
+  }] = useAddNewPostMutation();
 
+  useEffect(() => {
+
+  }, [isAddSuccess])
+  
 
   const upload = async ()=>{
     try {
@@ -46,11 +47,12 @@ const Share = () => {
   const handleClick = async (e) =>{
     e.preventDefault();
     let imgUrl = "";
-    if(image) imgUrl = await upload();
-    mutation.mutate({description,img:imgUrl})
+   // if(image) imgUrl = await upload();
+    await addNewPost({userId:currentUser.id,description})
     setDescription("");
     setImage(null);
   }
+
 
 
   return (

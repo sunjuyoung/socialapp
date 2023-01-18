@@ -15,10 +15,14 @@ import Fund from "../../assets/13.png";
 import { AuthContext } from "../../context/authContext";
 import { useContext } from "react";
 import PersonIcon from '@mui/icons-material/Person';
+import { useSelector } from "react-redux";
+import { selectUserInfo } from "../../pages/login/authSlice";
 
 const LeftBar = () => {
 
-  const { currentUser } = useContext(AuthContext);
+
+  const currentUser = useSelector(selectUserInfo);
+  //const { currentUser } = useContext(AuthContext);
 
   return (
     <div className="leftBar">

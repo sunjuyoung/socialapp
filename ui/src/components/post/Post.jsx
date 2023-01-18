@@ -12,52 +12,76 @@ import { Link } from "react-router-dom";
 import Comments from "../comments/Comments";
 import { useContext, useState } from "react";
 import moment from "moment";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { makeRequest } from "../../axios";
-import { AuthContext } from "../../context/authContext";
+
+import { useSelector } from "react-redux";
+import { selectCurrentId, selectUserInfo } from "../../pages/login/authSlice";
+import { likesApiSlice, selectLikesResult, useAddLikeMutation, useDeleteLikeMutation, useGetLikesQuery } from "../posts/likesApiSlice";
+import { useEffect } from "react";
 
 
 const Post = ({ post }) => {
   const [commentOpen, setCommentOpen] = useState(false);
-  const { currentUser } = useContext(AuthContext);
+  const currentUser = useSelector(selectUserInfo);
+
+  
   const [menuOpen, setMenuOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState('');
 
-  const { isLoading, error, data } = useQuery({
-    queryKey: ['likes',post.postId],
-    queryFn: () =>
-      makeRequest.get("/api/like/"+post.postId).then((res)=>{
-        return res.data;
-      })
-  })
 
-  
-  const queryClient = useQueryClient();
-  // Mutations
-  const mutation = useMutation((liked)=>{
-    console.log(liked)
-    if(liked) return makeRequest.delete("/api/like/"+post.postId+"/"+currentUser.id);
+  const userId = useSelector(selectCurrentId);
+  //const { data:like, error, isLoading } = useGetLikesQuery({id:userId});
 
-    return makeRequest.post("/api/like/"+post.postId+"/"+currentUser.id);
-},{
-  onSuccess: () => {
-  // Invalidate and refetch
-  queryClient.invalidateQueries({ queryKey: ['likes'] })
-}
-})
+  const { currentData:like, isError, isLoading, isSuccess } = selectLikesResult({id:userId});
 
-  const handleLike = (e) =>{
-    e.preventDefault();
-    mutation.mutate(data?.includes(parseInt(currentUser.id)))
+ // isLoading? console.log("loading") : console.log(data)
+
+
+const  [deleteLike,{
+  isLoading: isDelLoading,
+  isSuccess: isDelSuccess,
+  isError: isDelError,
+  error: delError
+}] =useDeleteLikeMutation();
+
+const [addLike,{
+  isLoading: isAddLoading,
+  isSuccess: isAddSuccess,
+  isError: isAddError,
+  error: addError
+}] = useAddLikeMutation();
+
+useEffect(() => {
+
+}, [isSuccess])
+
+
+
+useEffect(() => {
+
+}, [isAddSuccess])
+
+useEffect(() => {
+
+}, [isDelSuccess])
+
+
+  const handleLike = async (e) =>{
+    console.log(post.postId)
+      await addLike({postId:post.postId,userId:currentUser.id});
+  }
+
+  const handleDelLike = async (e) =>{
+    console.log(post.postId)
+    await deleteLike({postId:post.postId,userId:currentUser.id});
   }
 
   const handlePostDelete = (e) =>{
 
   }
 
-
-  return (
-    <div className="post">
+  const content = (
+    <>
+<div className="post">
       <div className="container">
         <div className="user">
           <div className="userInfo">
@@ -87,12 +111,12 @@ const Post = ({ post }) => {
         </div>
         <div className="info">
           <div className="item">
-            {isLoading ? "loading" : data?.includes(parseInt(currentUser.id))
+            {isLoading&& isAddLoading && isDelLoading ? "loading" : like?.includes(parseInt(currentUser.id))
             ? 
-            <FavoriteOutlinedIcon style={{color:"red"}} onClick={handleLike}/> 
+            <FavoriteOutlinedIcon style={{color:"red"}} onClick={handleDelLike}/> 
             : 
             <FavoriteBorderOutlinedIcon onClick={handleLike} />}
-            {data?.length} Likes
+            {like?.length} Likes
           </div>
           <div className="item" onClick={() => setCommentOpen(!commentOpen)}>
             <TextsmsOutlinedIcon />
@@ -106,7 +130,11 @@ const Post = ({ post }) => {
         {commentOpen && <Comments postId={post.postId}/>}
       </div>
     </div>
-  );
+    </>
+  )
+
+
+  return content;
 };
 
 export default Post;

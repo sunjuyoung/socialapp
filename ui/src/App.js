@@ -20,8 +20,8 @@ import { QueryClient, QueryClientProvider, useQuery } from '@tanstack/react-quer
 
 const queryClient = new QueryClient()
 function App() {
-  const {currentUser} = useContext(AuthContext);
-  console.log(currentUser)
+  // const {currentUser} = useContext(AuthContext);
+  // console.log(currentUser)
 
   const { darkMode } = useContext(DarkModeContext);
 
@@ -42,21 +42,15 @@ function App() {
     );
   };
 
-  const ProtectedRoute = ({ children }) => {
-    if (!currentUser) {
-      return <Navigate to="/login" />;
-    }
 
-    return children;
-  };
 
   const router = createBrowserRouter([
     {
       path: "/",
       element: (
-        <ProtectedRoute>
+      //  <ProtectedRoute>
           <Layout />
-        </ProtectedRoute>
+       // </ProtectedRoute>
       ),
       children: [
         {
