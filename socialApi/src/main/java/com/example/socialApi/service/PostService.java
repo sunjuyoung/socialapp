@@ -52,6 +52,21 @@ public class PostService {
         return postDTOList;
     }
 
+    public List<PostDTO> getLatelyPosts(Long id) {
+        List<Posts> top3 = postRepository.findTop3ByUsersOrderByCreatedByDesc(new Users(id));
+        List<PostDTO> postDTOS = new ArrayList<>();
+        top3.stream().forEach(post -> {
+            postDTOS.add(new PostDTO(post.getId(),
+                    post.getDescription(),
+                    post.getUsers().getNickname(),
+                    post.getUsers().getId(),
+                    post.getUsers().getProfilePic(),
+                    post.getCreatedBy()));
+        });
+
+        return postDTOS;
+    }
+
     public Long uploadImage(MultipartFile file) throws IOException {
         PostsPhoto save = postsPhotoRepository.save(PostsPhoto.builder()
                 .name(file.getOriginalFilename())
@@ -176,4 +191,6 @@ public class PostService {
         return null;
 
     }
+
+
 }

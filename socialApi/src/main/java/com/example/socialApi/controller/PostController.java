@@ -27,20 +27,18 @@ public class PostController {
     @GetMapping(value = "/list/{id}")
     public ResponseEntity<?> getPosts(@PathVariable("id")Long id,
                                       @RequestParam(value = "profileUserId",required = false)Long profileUserId){
-
         List<PostDTO> postDTOList = postService.getPosts(id,profileUserId);
         return ResponseEntity.ok().body(postDTOList);
     }
 
-/*    @PostMapping(value = "/{userId}")
-    public ResponseEntity<?> createPost(@PathVariable("userId")Long userId
-            ,@RequestBody CreatePostDTO createPostDTO){
-        log.info("=====");
-        log.info(createPostDTO.getDescription());
-        log.info(createPostDTO.getImg());
-        postService.createPost(createPostDTO,userId);
-        return ResponseEntity.ok().body("success");
-    }*/
+    @GetMapping(value = "/latelyList/{id}")
+    public ResponseEntity<?> getLatelyPosts(@PathVariable("id")Long id){
+        List<PostDTO> postDTOList = postService.getLatelyPosts(id);
+        return ResponseEntity.ok().body(postDTOList);
+    }
+
+
+
     @PostMapping(value = "/{userId}")
     public ResponseEntity<?> createPost(@PathVariable("userId")Long userId
             ,@RequestBody CreatePostDTO createPostDTO){

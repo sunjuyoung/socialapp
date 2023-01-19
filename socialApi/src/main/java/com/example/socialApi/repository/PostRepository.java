@@ -1,5 +1,6 @@
 package com.example.socialApi.repository;
 
+import com.example.socialApi.dto.PostDTO;
 import com.example.socialApi.model.Posts;
 import com.example.socialApi.model.Users;
 import org.springframework.data.jpa.repository.EntityGraph;
@@ -16,4 +17,7 @@ public interface PostRepository extends JpaRepository<Posts, Long> ,PostReposito
 
     @EntityGraph(attributePaths = {"users"})
     List<Posts> findByUsers(Users users);
+
+    @EntityGraph(attributePaths = {"users"})
+    List<Posts> findTop3ByUsersOrderByCreatedByDesc(Users users);
 }

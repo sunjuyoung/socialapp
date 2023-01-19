@@ -26,12 +26,16 @@ public class LikeController {
 
     @PostMapping(value = "/{postId}/{userId}")
     public ResponseEntity<?> saveLike(@PathVariable("postId") Long postId,@PathVariable("userId") Long userId){
+        log.info("=======================");
+        log.info(postId);
         likeService.saveLikes(postId,userId);
         return ResponseEntity.ok().body("success");
     }
 
     @DeleteMapping(value = "/{postId}/{userId}")
     public ResponseEntity<?> deleteLike(@PathVariable("postId") Long postId,@PathVariable("userId") Long userId){
+        log.info("=======================");
+        log.info(postId);
         likeService.deleteLike(postId,userId);
         return ResponseEntity.ok().body("success");
     }

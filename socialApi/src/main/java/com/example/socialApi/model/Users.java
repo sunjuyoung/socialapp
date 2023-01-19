@@ -9,12 +9,14 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 import static javax.persistence.FetchType.LAZY;
 
-@NoArgsConstructor @AllArgsConstructor
+@NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Entity
 @Builder
@@ -46,6 +48,7 @@ public class Users  {
     @OneToMany(mappedBy = "followedUser")
     private List<Relationships> followedUser = new ArrayList<>();
 
+    private LocalDateTime createdAt;
 
     public Users(SignUpDTO signUpDTO){
         this.nickname = signUpDTO.getNickname();
@@ -55,6 +58,10 @@ public class Users  {
         this.coverPic = signUpDTO.getCoverPic();
         this.website = signUpDTO.getWebsite();
         this.city = signUpDTO.getCity();
+        this.createdAt = LocalDateTime.now();
+    }
+    public Users(Long id){
+        this.id = id;
     }
 
     public void updateUser(ProfileDTO profileDTO){

@@ -28,4 +28,5 @@ public class UserController {
         userService.updateProfile(userId,profileDTO);
         return ResponseEntity.ok().body("updated");
     }
+
 }

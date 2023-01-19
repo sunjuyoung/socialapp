@@ -28,12 +28,23 @@ public class PostDTO {
 
     private LocalDateTime modifiedBy;
 
+    private int commentCount;
 
+
+    public PostDTO(Long postId, String description,String nickname,
+                  Long userId,String profilePic,LocalDateTime modifiedBy) {
+        this.postId = postId;
+        this.description = description;
+        this.nickname = nickname;
+        this.userId = userId;
+        this.profilePic = profilePic;
+        this.modifiedBy = modifiedBy;
+    }
 
 
     @QueryProjection
     public PostDTO(Long postId, String description, int likeCount, String nickname,
-                   LocalDateTime modifiedBy,Long userId,String img,String profilePic) {
+                   LocalDateTime modifiedBy,Long userId,String img,String profilePic,int commentCount) {
         this.postId = postId;
         this.description = description;
         this.likeCount = likeCount;
@@ -42,6 +53,7 @@ public class PostDTO {
         this.userId = userId;
         this.img = img;
         this.profilePic = profilePic;
+        this.commentCount = commentCount;
 
     }
 }

@@ -13,4 +13,8 @@ public interface PostRepositoryExtension {
     List<PostDTO> findAllWithUserNameAndLike(Long id);
 
     List<PostDTO> findAllByUserId(Long id);
+
+
+    List<PostDTO> searchPosts(String keyword);
+
 }

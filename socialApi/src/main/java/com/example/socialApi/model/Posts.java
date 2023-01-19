@@ -23,28 +23,16 @@ public class Posts extends BaseTimes {
 
     private String description;
 
-/*    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "posts_photo_id")
-    private PostsPhoto postsPhoto;*/
-
     private String img;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Users users;
 
 
-/*    @OneToMany(cascade = CascadeType.REMOVE
-            ,mappedBy = "posts"
-            ,orphanRemoval = true)
-    private List<Likes> likes = new ArrayList<>();*/
-
-
-
-
-
     public void uploadImg(String img){
         this.img = img;
     }
+
 
 
 }
