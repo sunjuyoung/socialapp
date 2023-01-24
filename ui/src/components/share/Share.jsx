@@ -3,15 +3,12 @@ import Image from "../../assets/img.png";
 import Map from "../../assets/map.png";
 import Friend from "../../assets/friend.png";
 import PersonIcon from '@mui/icons-material/Person';
-import { useContext, useEffect, useState } from "react";
-import {
-  useMutation,
-  useQueryClient,
-} from '@tanstack/react-query'
-import { makeRequest, uploadRequest } from "../../axios";
+import {  useEffect, useState } from "react";
+
+import {  uploadRequest } from "../../axios";
 import { useSelector } from "react-redux";
 import { selectUserInfo } from "../../pages/login/authSlice";
-import { useAddNewPostMutation } from "../posts/postsApiSlice";
+import { useAddNewPostMutation } from "../../app/slice/postsApiSlice";
 
 const Share = () => {
 
@@ -27,10 +24,6 @@ const Share = () => {
     error: addError
   }] = useAddNewPostMutation();
 
-  useEffect(() => {
-
-  }, [isAddSuccess])
-  
 
   const upload = async ()=>{
     try {

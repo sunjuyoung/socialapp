@@ -1,12 +1,15 @@
-import { createEntityAdapter, createSelector } from "@reduxjs/toolkit";
-import { apiSlice } from "../../app/api/apiSlice";
+
+import { apiSlice } from "../api/apiSlice";
 
 export const likesApiSlice = apiSlice.injectEndpoints({
     endpoints: (builder) => ({
       getLikes: builder.query({
         query: ({id}) => `/api/like/${id}`,
 
-        providesTags: ['Like'],
+        providesTags: (result, error, arg) =>
+        result
+          ? [...result.map(({ id }) => ({ type: 'Like', id })), 'Like']
+          : ['Like'],
 
       }),
 
@@ -16,7 +19,7 @@ export const likesApiSlice = apiSlice.injectEndpoints({
           method: 'POST',
  
         }),
-        invalidatesTags:  ['Like'],
+        invalidatesTags: ['Like'],
       }),
 
       deleteLike: builder.mutation({

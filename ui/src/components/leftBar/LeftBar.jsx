@@ -12,17 +12,12 @@ import Messages from "../../assets/10.png";
 import Tutorials from "../../assets/11.png";
 import Courses from "../../assets/12.png";
 import Fund from "../../assets/13.png";
-import { AuthContext } from "../../context/authContext";
-import { useContext } from "react";
 import PersonIcon from '@mui/icons-material/Person';
 import { useSelector } from "react-redux";
 import { selectUserInfo } from "../../pages/login/authSlice";
 
 const LeftBar = () => {
-
-
   const currentUser = useSelector(selectUserInfo);
-  //const { currentUser } = useContext(AuthContext);
 
   return (
     <div className="leftBar">
@@ -36,7 +31,7 @@ const LeftBar = () => {
               alt=""/>
               </>) 
              : (<><PersonIcon /></>)}
-            <span>{currentUser.nickname}</span>
+            <span>{currentUser.currentUser}</span>
           </div>
           <div className="item">
             <img src={Friends} alt="" />

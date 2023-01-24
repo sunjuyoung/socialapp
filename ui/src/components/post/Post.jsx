@@ -4,18 +4,16 @@ import FavoriteOutlinedIcon from "@mui/icons-material/FavoriteOutlined";
 import TextsmsOutlinedIcon from "@mui/icons-material/TextsmsOutlined";
 import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
-
 import DeleteIcon from '@mui/icons-material/Delete';
 import UpdateIcon from '@mui/icons-material/Update';
-
 import { Link } from "react-router-dom";
 import Comments from "../comments/Comments";
-import { useContext, useState } from "react";
+import { useState } from "react";
 import moment from "moment";
-
 import { useSelector } from "react-redux";
 import { selectCurrentId, selectUserInfo } from "../../pages/login/authSlice";
-import { likesApiSlice, selectLikesResult, useAddLikeMutation, useDeleteLikeMutation, useGetLikesQuery } from "../posts/likesApiSlice";
+import {  selectLikesResult,
+   useAddLikeMutation, useDeleteLikeMutation } from "../../app/slice/likesApiSlice";
 import { useEffect } from "react";
 
 
@@ -29,40 +27,21 @@ const Post = ({ post }) => {
 
 
   const userId = useSelector(selectCurrentId);
-  //const { data:like, error, isLoading } = useGetLikesQuery({id:userId});
+  const { currentData:like, isError, isLoading, isSuccess } = selectLikesResult({id:post.postId});
 
-  const { currentData:like, isError, isLoading, isSuccess } = selectLikesResult({id:userId});
+  const  [deleteLike,{
+    isLoading: isDelLoading,
+    isSuccess: isDelSuccess,
+    isError: isDelError,
+    error: delError
+  }] =useDeleteLikeMutation();
 
- // isLoading? console.log("loading") : console.log(data)
-
-
-const  [deleteLike,{
-  isLoading: isDelLoading,
-  isSuccess: isDelSuccess,
-  isError: isDelError,
-  error: delError
-}] =useDeleteLikeMutation();
-
-const [addLike,{
-  isLoading: isAddLoading,
-  isSuccess: isAddSuccess,
-  isError: isAddError,
-  error: addError
-}] = useAddLikeMutation();
-
-useEffect(() => {
-
-}, [isSuccess])
-
-
-
-useEffect(() => {
-
-}, [isAddSuccess])
-
-useEffect(() => {
-
-}, [isDelSuccess])
+  const [addLike,{
+    isLoading: isAddLoading,
+    isSuccess: isAddSuccess,
+    isError: isAddError,
+    error: addError
+  }] = useAddLikeMutation();
 
 
   const handleLike = async (e) =>{
@@ -111,7 +90,7 @@ useEffect(() => {
         </div>
         <div className="info">
           <div className="item">
-            {isLoading&& isAddLoading && isDelLoading ? "loading" : like?.includes(parseInt(currentUser.id))
+            {isLoading ? "loading" : like?.includes(parseInt(currentUser.id))
             ? 
             <FavoriteOutlinedIcon style={{color:"red"}} onClick={handleDelLike}/> 
             : 

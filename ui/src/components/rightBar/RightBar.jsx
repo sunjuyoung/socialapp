@@ -1,15 +1,11 @@
-import { useQuery } from "@tanstack/react-query";
-import { makeRequest } from "../../axios";
 import "./rightBar.scss";
-import { AuthContext } from "../../context/authContext";
-import { useContext, useState } from "react";
+import { useState } from "react";
 import moment from "moment";
 import { useSelector } from "react-redux";
 import { selectUserInfo } from "../../pages/login/authSlice";
 
 const RightBar = () => {
 
-  //const { currentUser } = useContext(AuthContext);
   const currentUser = useSelector(selectUserInfo);
 
 

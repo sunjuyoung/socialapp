@@ -6,6 +6,7 @@ import {
   Route,
   Outlet,
   Navigate,
+  useNavigate,
 } from "react-router-dom";
 import Navbar from "./components/navbar/Navbar";
 import LeftBar from "./components/leftBar/LeftBar";
@@ -15,14 +16,14 @@ import Profile from "./pages/profile/Profile";
 import "./style.scss";
 import { useContext } from "react";
 import { DarkModeContext } from "./context/darkModeContext";
-import { AuthContext } from "./context/authContext";
-import { QueryClient, QueryClientProvider, useQuery } from '@tanstack/react-query'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { useSelector } from "react-redux";
+import { selectCurrentToken } from "./pages/login/authSlice";
 
 const queryClient = new QueryClient()
 function App() {
-  // const {currentUser} = useContext(AuthContext);
-  // console.log(currentUser)
 
+  const token = useSelector(selectCurrentToken);
   const { darkMode } = useContext(DarkModeContext);
 
   const Layout = () => {
@@ -43,14 +44,22 @@ function App() {
   };
 
 
+  const ProtectedRoute = ({ children }) => {
+    if (!token) {
+      return <Login />;
+    }
 
+    return children;
+  };
+  
   const router = createBrowserRouter([
     {
       path: "/",
       element: (
-      //  <ProtectedRoute>
+        <ProtectedRoute>
           <Layout />
-       // </ProtectedRoute>
+        </ProtectedRoute>
+
       ),
       children: [
         {
