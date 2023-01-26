@@ -38,4 +38,6 @@ public class RelationShipController {
         relationShipService.deleteRelationShip(followUser,followedUser);
         return ResponseEntity.ok().body("success");
     }
+
+
 }

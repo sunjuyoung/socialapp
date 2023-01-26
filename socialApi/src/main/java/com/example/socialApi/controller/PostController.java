@@ -37,6 +37,11 @@ public class PostController {
         return ResponseEntity.ok().body(postDTOList);
     }
 
+    @GetMapping(value = "/search/{keyword}")
+    public ResponseEntity<?> getSearchPosts(@PathVariable("keyword")String keyword){
+        List<PostDTO> postDTOList = postService.getSearchPosts(keyword);
+        return ResponseEntity.ok().body(postDTOList);
+    }
 
 
     @PostMapping(value = "/{userId}")

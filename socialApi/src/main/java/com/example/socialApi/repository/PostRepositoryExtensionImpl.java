@@ -67,6 +67,7 @@ public class PostRepositoryExtensionImpl extends QuerydslRepositorySupport imple
                 .leftJoin(comments).on(comments.posts.eq(posts))
                 .groupBy(posts.id, users.nickname, users.id)
                 .orderBy(posts.id.desc())
+                .limit(100)
                 .select(new QPostDTO(
                         posts.id,
                         posts.description,

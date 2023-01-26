@@ -1,5 +1,6 @@
 package com.example.socialApi.controller;
 
+import com.example.socialApi.dto.FriendsDTO;
 import com.example.socialApi.dto.ProfileDTO;
 import com.example.socialApi.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -7,6 +8,8 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Log4j2
 @RequiredArgsConstructor
@@ -27,6 +30,12 @@ public class UserController {
                                            @RequestBody ProfileDTO profileDTO){
         userService.updateProfile(userId,profileDTO);
         return ResponseEntity.ok().body("updated");
+    }
+
+    @GetMapping(value = "/rel/{userId}" ,produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> getRelUsers(@PathVariable("userId")Long userId){
+        List<FriendsDTO> friendsDTOList  = userService.getRelUsers(userId);
+        return ResponseEntity.ok().body(friendsDTOList);
     }
 
 }

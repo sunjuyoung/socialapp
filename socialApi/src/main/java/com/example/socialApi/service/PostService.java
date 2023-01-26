@@ -86,26 +86,10 @@ public class PostService {
         return image;
     }
 
-/*    public void createPost(CreatePostDTO createPostDTO, Long userId, Long photoId) {
-        Optional<Users> users = userRepository.findById(userId);
-        Optional<PostsPhoto> photo = postsPhotoRepository.findById(photoId);
-        Posts posts;
-       if(photo.isPresent()){
-           posts = Posts.builder()
-                   .description(createPostDTO.getDescription())
-                   .users(users.get())
-                   .postsPhoto(photo.get())
-                   .build();
-        }else{
-           posts = Posts.builder()
-                   .description(createPostDTO.getDescription())
-                   .users(users.get())
-                   .build();
 
-       }
-        postRepository.save(posts);
-    }*/
-
+    public List<PostDTO> getSearchPosts(String keyword) {
+        return postRepository.searchPosts(keyword);
+    }
     public void createPosts(CreatePostDTO createPostDTO, Long userId) {
         Optional<Users> users = userRepository.findById(userId);
         Posts posts = Posts.builder()
@@ -191,6 +175,7 @@ public class PostService {
         return null;
 
     }
+
 
 
 }
