@@ -11,4 +11,6 @@ public interface UserService {
     void updateProfile(Long userId, ProfileDTO profileDTO);
 
     List<FriendsDTO> getRelUsers(Long userId);
+
+    List<FriendsDTO> getRecommendUser(Long userId);
 }

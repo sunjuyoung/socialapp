@@ -23,9 +23,9 @@ public class UserRepositoryExtensionImpl extends QuerydslRepositorySupport imple
 
     @Override
     public List<FriendsDTO> findFriends(Long userId) {
-        List<FriendsDTO> fetch = from(users)
-                .innerJoin(relationships).on(relationships.followUser.eq(users))
-                .where(users.id.eq(userId))
+        List<FriendsDTO> fetch = from(relationships)
+                .innerJoin(users).on(relationships.followedUser.eq(users))
+                .where(relationships.followUser.id.eq(userId))
                 .limit(5)
                 .select(new QFriendsDTO(
                         users.id,
@@ -35,4 +35,21 @@ public class UserRepositoryExtensionImpl extends QuerydslRepositorySupport imple
                 )).fetch();
         return fetch;
     }
+
+    @Override
+    public List<FriendsDTO> findRecommendUser(Long userId) {
+        List<FriendsDTO> fetch = from(relationships)
+                .innerJoin(users).on(relationships.followUser.eq(users))
+                .where(relationships.followedUser.id.eq(userId))
+                .limit(5)
+                .select(new QFriendsDTO(
+                        users.id,
+                        users.nickname,
+                        users.profilePic,
+                        relationships.followedUser.id
+                )).fetch();
+        return fetch;
+    }
+
+
 }

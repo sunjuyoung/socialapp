@@ -38,4 +38,10 @@ public class UserController {
         return ResponseEntity.ok().body(friendsDTOList);
     }
 
+    @GetMapping(value = "/recommendUser/{userId}" ,produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> getRecommendUser(@PathVariable("userId")Long userId){
+        List<FriendsDTO> friendsDTOList  = userService.getRecommendUser(userId);
+        return ResponseEntity.ok().body(friendsDTOList);
+    }
+
 }

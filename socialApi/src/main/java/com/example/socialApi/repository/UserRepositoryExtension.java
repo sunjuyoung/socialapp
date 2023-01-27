@@ -9,4 +9,7 @@ import java.util.List;
 public interface UserRepositoryExtension {
 
     List<FriendsDTO> findFriends(Long userId);
+
+
+    List<FriendsDTO> findRecommendUser(Long userId);
 }

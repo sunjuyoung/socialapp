@@ -52,4 +52,9 @@ public class UserServiceImpl implements UserService{
 
         return userRepository.findFriends(userId);
     }
+
+    @Override
+    public List<FriendsDTO> getRecommendUser(Long userId) {
+        return userRepository.findRecommendUser(userId);
+    }
 }
