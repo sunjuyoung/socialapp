@@ -23,19 +23,33 @@ export const usersApiSlice = apiSlice.injectEndpoints({
       }),
 
 
+      getRelUser: builder.query({
+        query: (id) => `/api/user/rel/${id}`,
+        providesTags: (result, error, id) => [{ type: 'User', id }],
+      }),
+
+      getRecommendUser: builder.query({
+        query: (id) => `/api/user/recommendUser/${id}`,
+        providesTags: (result, error, id) => [{ type: 'User', id }],
+      }),
       
       getRelationship: builder.query({
         query: (id) => `/api/relationship/${id}`,
         providesTags: (result, error, id) => [{ type: 'User', id }],
       }),
 
+
+
     }),
   })
 
   export const {
     useGetUserQuery,
+    useGetRelUserQuery,
+    useGetRecommendUserQuery,
     useGetRelationshipQuery,
     useUpdateUserMutation,
+
 } = usersApiSlice
 
 
