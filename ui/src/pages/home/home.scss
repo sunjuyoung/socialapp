@@ -4,6 +4,8 @@
   @include themify($themes) {
     padding: 20px 70px;
     background-color: themed("bgSoft");
+    height: calc(100vh - 70px);
+    overflow: scroll;
 
     @include mobile {
       padding: 10px;

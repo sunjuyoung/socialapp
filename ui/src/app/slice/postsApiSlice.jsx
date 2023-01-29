@@ -51,6 +51,14 @@ export const postsApiSlice = apiSlice.injectEndpoints({
         invalidatesTags: ['Post'],
       }),
 
+      addPostImage: builder.mutation({
+        query: (data) => ({
+          url: '/upload',
+          method: 'POST',
+          body :data
+        }),
+      }),
+
 
     }),
   })
@@ -59,6 +67,7 @@ export const postsApiSlice = apiSlice.injectEndpoints({
     useGetPostsQuery,
     useSearchPostsQuery,
     useDeletePostMutation,
+    useAddPostImageMutation,
     useUpdatePostMutation,
     useAddNewPostMutation,
 } = postsApiSlice

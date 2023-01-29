@@ -3,34 +3,33 @@ import Image from "../../assets/img.png";
 import Map from "../../assets/map.png";
 import Friend from "../../assets/friend.png";
 import PersonIcon from '@mui/icons-material/Person';
-import {  useEffect, useState } from "react";
-
-import {  uploadRequest } from "../../axios";
+import {  useState } from "react";
 import { useSelector } from "react-redux";
 import { selectUserInfo } from "../../pages/login/authSlice";
-import { useAddNewPostMutation } from "../../app/slice/postsApiSlice";
+import { useAddNewPostMutation, useAddPostImageMutation } from "../../app/slice/postsApiSlice";
 
 const Share = () => {
 
-  const [image, setImage] = useState(null)
+  const [file, setFile] = useState(null);
   const [description, setDescription] = useState("")
   const currentUser = useSelector(selectUserInfo);
 
-
   const [addNewPost ,{
     isLoading: isAddLoading,
-    isSuccess: isAddSuccess,
-    isError: isAddError,
-    error: addError
   }] = useAddNewPostMutation();
+
+  const [addPostImage ,{
+    isSuccess: isImgSuccess,
+    data:ImgData,
+  }] = useAddPostImageMutation();
 
 
   const upload = async ()=>{
     try {
       const formData = new FormData();
-      formData.append("files", image);
-      const res = await uploadRequest.post("/upload", formData);
-      return res.data;
+      formData.append("files", file);
+      await addPostImage(formData)
+      if(isImgSuccess)console.log(ImgData); 
     } catch (error) {
       console.log(error)
     }
@@ -38,13 +37,17 @@ const Share = () => {
 
 
   const handleClick = async (e) =>{
-    e.preventDefault();
+  
     let imgUrl = "";
-   // if(image) imgUrl = await upload();
-    await addNewPost({userId:currentUser.id,description})
+    if(file) imgUrl = await upload();
+    await addNewPost({userId:currentUser.id,description,img:file})
     setDescription("");
-    setImage(null);
+    setFile(null);
   }
+
+
+
+
 
 
 
@@ -68,18 +71,23 @@ const Share = () => {
             />
           </div>
           <div className="right">
-            {image && <img className="file" alt="" src={URL.createObjectURL(image)} />}
+            {file && <img className="file" alt="" src={URL.createObjectURL(file)} />}
           </div>
         </div>
         <hr />
         <div className="bottom">
           <div className="left">
-            <input type="file" id="image" style={{display:"none"}} 
-            onChange={(e)=> setImage(e.target.files[0])} />
-            <label htmlFor="image">
+          <input
+              type="file"
+              id="post_file"
+              name="file"
+              style={{ display: "none" }}
+              onChange={(e) => setFile(e.target.files[0])}
+            />
+            <label htmlFor="post_file">
               <div className="item">
-                <img src={Image} alt="" />
-                <span>Add Image</span>
+                <img src={Image} alt="file" />
+                <span >Add Image</span>
               </div>
             </label>
             <div className="item">
